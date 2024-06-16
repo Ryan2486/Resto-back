@@ -1,12 +1,16 @@
 package com.example.demo.Model;
 
 import java.util.Date;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -26,10 +30,11 @@ public class CommandeModel {
     @Column(name = "datecom")
     private Date datecom;
 
-    @ManyToOne
-    @JoinColumn(name = "idplat", referencedColumnName = "idplat")
-    private MenuModel menu;
+    @JsonIgnore
+    @OneToMany(mappedBy = "commande")
+    private List<ContenueMondel> contenue;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idtable", referencedColumnName = "idtable")
     private TableModel table;
@@ -67,12 +72,12 @@ public class CommandeModel {
         this.datecom = datecom;
     }
 
-    public MenuModel getMenu() {
-        return menu;
+    public List<ContenueMondel> getMenu() {
+        return contenue;
     }
 
-    public void setMenu(MenuModel menu) {
-        this.menu = menu;
+    public void setMenu(List<ContenueMondel> contenue) {
+        this.contenue = contenue;
     }
 
     public TableModel getTable() {

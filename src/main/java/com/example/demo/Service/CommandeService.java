@@ -30,4 +30,5 @@ public class CommandeService {
     public void deleteById(String id) {
         commandeRepository.deleteById(id);
     }
+    
 }
