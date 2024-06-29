@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Model.CommandeModel;
 import com.example.demo.Service.CommandeService;
 
+import jakarta.persistence.EntityExistsException;
+
 @RestController
 @RequestMapping("/api/commandes")
 public class CommandeController {
@@ -37,15 +39,19 @@ public class CommandeController {
 
     @PostMapping
     public CommandeModel createCommande(@RequestBody CommandeModel commandeModel) {
+        if (commandeService.findById(commandeModel.getIdcom()) == null) {
+            throw new EntityExistsException("La Commande N°:" + commandeModel.getIdcom() + " existe déjà");
+        }
         return commandeService.save(commandeModel);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CommandeModel> updateCommande(@PathVariable String id, @RequestBody CommandeModel commandeModel) {
+    public ResponseEntity<CommandeModel> updateCommande(@PathVariable String id,
+            @RequestBody CommandeModel commandeModel) {
         Optional<CommandeModel> existingCommande = commandeService.findById(id);
         if (existingCommande.isPresent()) {
             CommandeModel updatedCommande = existingCommande.get();
-            updatedCommande.setMenu(commandeModel.getMenu());
+            // updatedCommande.setMenu(commandeModel.getMenu());
             updatedCommande.setNomcli(commandeModel.getNomcli());
             updatedCommande.setTypecom(commandeModel.getTypecom());
             updatedCommande.setTable(commandeModel.getTable());

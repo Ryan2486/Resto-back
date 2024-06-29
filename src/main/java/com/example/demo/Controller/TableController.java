@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Model.TableModel;
 import com.example.demo.Service.TableService;
 
+import jakarta.persistence.EntityExistsException;
+
 @RestController
 @RequestMapping("/api/tables")
 public class TableController {
@@ -37,6 +39,11 @@ public class TableController {
 
     @PostMapping
     public TableModel createTable(@RequestBody TableModel tableModel) {
+        Optional<TableModel> existingEntity = tableService.findById(tableModel.getIdtable());
+        if (existingEntity != null) {
+            throw new EntityExistsException("Table N°:" + tableModel.getIdtable() + " existe déjà");
+
+        }
         return tableService.save(tableModel);
     }
 

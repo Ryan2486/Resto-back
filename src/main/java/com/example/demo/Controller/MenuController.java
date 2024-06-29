@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Model.MenuModel;
 import com.example.demo.Service.MenuService;
 
+import jakarta.persistence.EntityExistsException;
+
 @RestController
 @RequestMapping("/api/menus")
 public class MenuController {
@@ -37,6 +39,9 @@ public class MenuController {
 
     @PostMapping
     public MenuModel createMenu(@RequestBody MenuModel menuModel) {
+        if (menuService.findById(menuModel.getIdplat()) == null) {
+            throw new EntityExistsException("Le menu N°" + menuModel.getIdplat() + " existe déjà ");
+        }
         return menuService.save(menuModel);
     }
 
@@ -55,6 +60,7 @@ public class MenuController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMenu(@PathVariable String id) {
+        System.out.println(("hello"));
         if (menuService.findById(id).isPresent()) {
             menuService.deleteById(id);
             return ResponseEntity.noContent().build();

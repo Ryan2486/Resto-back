@@ -5,7 +5,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
-
 @Entity
 @Table(name = "_TABLE")
 public class TableModel {
@@ -15,6 +14,9 @@ public class TableModel {
 
     @Column(name = "designation")
     private String designation;
+
+    @Column(name = "nbrPlace")
+    private int nbrPlace;
 
     // Getters and setters
     public String getIdtable() {
@@ -31,5 +33,13 @@ public class TableModel {
 
     public void setDesignation(String designation) {
         this.designation = designation;
+    }
+
+    public int getnbrPlace() {
+        return nbrPlace;
+    }
+
+    public void setnbrPlace(int nbrPlace) {
+        this.nbrPlace = nbrPlace;
     }
 }

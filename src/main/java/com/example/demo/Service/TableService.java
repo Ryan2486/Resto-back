@@ -24,7 +24,9 @@ public class TableService {
     }
 
     public TableModel save(TableModel tableModel) {
+
         return tableRepository.save(tableModel);
+
     }
 
     public void deleteById(String id) {

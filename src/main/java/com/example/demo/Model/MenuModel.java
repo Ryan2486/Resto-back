@@ -1,6 +1,6 @@
 package com.example.demo.Model;
 
-import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -26,7 +26,7 @@ public class MenuModel {
 
     @JsonIgnore
     @OneToMany(mappedBy = "menu")
-    private List<ContenueMondel> contenue;
+    private Set<ContenueModel> contenue;
 
     // Getters and setters
     public String getIdplat() {
@@ -53,11 +53,11 @@ public class MenuModel {
         this.pu = pu;
     }
 
-    public List<ContenueMondel> getContenue() {
+    public Set<ContenueModel> getContenue() {
         return contenue;
     }
 
-    public void setContenue(List<ContenueMondel> contenue) {
+    public void setContenue(Set<ContenueModel> contenue) {
         this.contenue = contenue;
     }
 }

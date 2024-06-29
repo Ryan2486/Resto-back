@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Model.ReserverModel;
 import com.example.demo.Service.ReserverService;
 
+import jakarta.persistence.EntityExistsException;
+
 @RestController
 @RequestMapping("/api/reservations")
 public class ReserverController {
@@ -37,17 +39,21 @@ public class ReserverController {
 
     @PostMapping
     public ReserverModel createReservation(@RequestBody ReserverModel reserverModel) {
+        if (reserverService.findById(reserverModel.getIdreserv()) == null) {
+            throw new EntityExistsException("L'entiter existe déjà");
+        }
         return reserverService.save(reserverModel);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ReserverModel> updateReservation(@PathVariable String id, @RequestBody ReserverModel reserverModel) {
+    public ResponseEntity<ReserverModel> updateReservation(@PathVariable String id,
+            @RequestBody ReserverModel reserverModel) {
         Optional<ReserverModel> existingReservation = reserverService.findById(id);
         if (existingReservation.isPresent()) {
             ReserverModel updatedReservation = existingReservation.get();
             updatedReservation.setTable(reserverModel.getTable());
             updatedReservation.setDateDeReserv(reserverModel.getDateDeReserv());
-            updatedReservation.setDateReservé(reserverModel.getDateReservé());
+            updatedReservation.setDateReserve(reserverModel.getDateReserve());
             updatedReservation.setNomcli(reserverModel.getNomcli());
             return ResponseEntity.ok(reserverService.save(updatedReservation));
         } else {

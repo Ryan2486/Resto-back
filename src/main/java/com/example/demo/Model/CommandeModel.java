@@ -1,9 +1,7 @@
 package com.example.demo.Model;
 
 import java.util.Date;
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,11 +28,9 @@ public class CommandeModel {
     @Column(name = "datecom")
     private Date datecom;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "commande")
-    private List<ContenueMondel> contenue;
+    private Set<ContenueModel> contenue;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idtable", referencedColumnName = "idtable")
     private TableModel table;
@@ -72,11 +68,11 @@ public class CommandeModel {
         this.datecom = datecom;
     }
 
-    public List<ContenueMondel> getMenu() {
+    public Set<ContenueModel> getContenue() {
         return contenue;
     }
 
-    public void setMenu(List<ContenueMondel> contenue) {
+    public void setContenue(Set<ContenueModel> contenue) {
         this.contenue = contenue;
     }
 

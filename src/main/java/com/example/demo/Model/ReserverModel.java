@@ -20,8 +20,8 @@ public class ReserverModel {
     @Column(name = "date_de_reserv")
     private Date dateDeReserv;
 
-    @Column(name = "date_reservé")
-    private Date dateReservé;
+    @Column(name = "date_reserve")
+    private Date dateReserve;
 
     @Column(name = "nomcli")
     private String nomcli;
@@ -47,12 +47,12 @@ public class ReserverModel {
         this.dateDeReserv = dateDeReserv;
     }
 
-    public Date getDateReservé() {
-        return dateReservé;
+    public Date getDateReserve() {
+        return dateReserve;
     }
 
-    public void setDateReservé(Date dateReservé) {
-        this.dateReservé = dateReservé;
+    public void setDateReserve(Date dateReserve) {
+        this.dateReserve = dateReserve;
     }
 
     public String getNomcli() {
