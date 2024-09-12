@@ -15,7 +15,7 @@ public class TableModel {
     @Column(name = "designation")
     private String designation;
 
-    @Column(name = "nbrPlace")
+    @Column(name = "nbr_place")
     private int nbrPlace;
 
     // Getters and setters

@@ -6,11 +6,14 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.Model.CommandeModel;
 import com.example.demo.Model.ContenueModel;
 import com.example.demo.Model.Dashboard.MonthTotalEntry;
+import com.example.demo.Model.Dashboard.Topplat;
 import com.example.demo.Repository.ContenueRepository;
 
 @Service
@@ -25,6 +28,11 @@ public class DashboardService {
     Date startDate = calendar.getTime();
 
     return calculerTotalParMois(contenueRepository.findByQte(startDate));
+  }
+
+  public List<Topplat> findTop10Plats() {
+    Pageable topTen = PageRequest.of(0, 10);
+    return contenueRepository.findTop10Plats(topTen);
   }
 
   public int SommeTotal() {

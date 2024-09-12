@@ -1,5 +1,6 @@
 package com.example.demo.Model;
 
+import java.sql.Time;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -25,6 +26,12 @@ public class ReserverModel {
 
     @Column(name = "nomcli")
     private String nomcli;
+
+    @Column(name = "time")
+    private Time time;
+
+    @Column(name = "time_fin")
+    private Time timeFin;
 
     @ManyToOne
     @JoinColumn(name = "idtable", referencedColumnName = "idtable")
@@ -61,6 +68,22 @@ public class ReserverModel {
 
     public void setNomcli(String nomcli) {
         this.nomcli = nomcli;
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
+    }
+
+    public Time getTimeFin() {
+        return timeFin;
+    }
+
+    public void setTimeFin(Time timeFin) {
+        this.timeFin = timeFin;
     }
 
     public TableModel getTable() {

@@ -17,7 +17,8 @@ public class DashboardCotnroller {
 
   @GetMapping()
   public DashboardModel Contenue6mois() {
-    DashboardModel dashboard = new DashboardModel(dashboardService.Contenue6mois(), dashboardService.SommeTotal());
+    DashboardModel dashboard = new DashboardModel(dashboardService.Contenue6mois(), dashboardService.SommeTotal(),
+        dashboardService.findTop10Plats());
     return dashboard;
   }
 }

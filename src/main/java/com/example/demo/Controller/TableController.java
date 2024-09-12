@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,8 +40,7 @@ public class TableController {
 
     @PostMapping
     public TableModel createTable(@RequestBody TableModel tableModel) {
-        Optional<TableModel> existingEntity = tableService.findById(tableModel.getIdtable());
-        if (existingEntity != null) {
+        if (tableService.findById(tableModel.getIdtable()).isPresent()) {
             throw new EntityExistsException("Table N°:" + tableModel.getIdtable() + " existe déjà");
 
         }
@@ -51,9 +51,7 @@ public class TableController {
     public ResponseEntity<TableModel> updateTable(@PathVariable String id, @RequestBody TableModel tableModel) {
         Optional<TableModel> existingTable = tableService.findById(id);
         if (existingTable.isPresent()) {
-            TableModel updatedTable = existingTable.get();
-            updatedTable.setDesignation(tableModel.getDesignation());
-            return ResponseEntity.ok(tableService.save(updatedTable));
+            return ResponseEntity.ok(tableService.save(tableModel));
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -62,7 +60,14 @@ public class TableController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTable(@PathVariable String id) {
         if (tableService.findById(id).isPresent()) {
-            tableService.deleteById(id);
+            try {
+                tableService.deleteById(id);
+            } catch (Exception e) {
+                if (e instanceof DataIntegrityViolationException) {
+                    throw new DataIntegrityViolationException("Erreur lors de la suppression de la table N°" + id
+                            + " ,la table est utilisée dans une réservation ou une commande");
+                }
+            }
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();

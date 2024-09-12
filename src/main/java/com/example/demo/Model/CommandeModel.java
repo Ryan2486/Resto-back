@@ -3,6 +3,9 @@ package com.example.demo.Model;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -28,7 +31,8 @@ public class CommandeModel {
     @Column(name = "datecom")
     private Date datecom;
 
-    @OneToMany(mappedBy = "commande")
+    @JsonIgnore
+    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL)
     private Set<ContenueModel> contenue;
 
     @ManyToOne

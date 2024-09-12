@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,10 +40,11 @@ public class MenuController {
 
     @PostMapping
     public MenuModel createMenu(@RequestBody MenuModel menuModel) {
-        if (menuService.findById(menuModel.getIdplat()) == null) {
+        if (menuService.findById(menuModel.getIdplat()).isPresent()) {
             throw new EntityExistsException("Le menu N°" + menuModel.getIdplat() + " existe déjà ");
         }
         return menuService.save(menuModel);
+
     }
 
     @PutMapping("/{id}")
@@ -62,7 +64,16 @@ public class MenuController {
     public ResponseEntity<Void> deleteMenu(@PathVariable String id) {
         System.out.println(("hello"));
         if (menuService.findById(id).isPresent()) {
-            menuService.deleteById(id);
+            try {
+                menuService.deleteById(id);
+            } catch (Exception e) {
+                if (e instanceof EntityExistsException) {
+                    throw new DataIntegrityViolationException(
+                            "Erreur lors de la suppression du menu N°" + id
+                                    + " ,le menu est utilisé dans une commande");
+                }
+
+            }
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.notFound().build();

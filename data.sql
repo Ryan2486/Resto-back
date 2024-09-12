@@ -55,17 +55,17 @@ INSERT INTO COMMANDE (idcom, nomcli, typecom, datecom, idtable) VALUES
 ('COM016', 'Joseph Jackson', 'Emporter', '2023-02-01', NULL);
 
 -- Insertion des données dans la table RESERVER (ReserverModel)
-INSERT INTO RESERVER (idreserv, date_de_reserv, date_reserve, nomcli, idtable) VALUES 
-('RES001', '2023-12-01', '2024-06-17', 'John Doe', 'T001'),
-('RES002', '2023-11-02', '2024-06-18', 'Jane Smith', 'T002'),
-('RES003', '2023-10-03', '2024-06-19', 'Robert Johnson', 'T003'),
-('RES004', '2023-09-04', '2024-06-20', 'Michael Williams', 'T004'),
-('RES005', '2023-08-05', '2024-06-21', 'Mary Brown', 'T005'),
-('RES006', '2023-07-06', '2024-06-22', 'James Jones', 'T006'),
-('RES007', '2023-06-07', '2024-06-23', 'Patricia Garcia', 'T007'),
-('RES008', '2023-05-08', '2024-06-24', 'Jennifer Martinez', 'T008'),
-('RES009', '2023-04-09', '2024-06-25', 'William Rodriguez', 'T009'),
-('RES010', '2023-03-10', '2024-06-26', 'Linda Davis', 'T010');
+INSERT INTO RESERVER (idreserv, date_de_reserv, date_reserve, nomcli, idtable, time, time_fin) VALUES 
+('RES001', '2023-12-01', '2024-06-17', 'John Doe', 'T001', '12:30:00', '13:30:00'),
+('RES002', '2023-11-02', '2024-06-18', 'Jane Smith', 'T002', '13:45:00', '14:45:00'),
+('RES003', '2023-10-03', '2024-06-19', 'Robert Johnson', 'T003', '18:15:00', '19:15:00'),
+('RES004', '2023-09-04', '2024-06-20', 'Michael Williams', 'T004', '20:00:00', '21:00:00'),
+('RES005', '2023-08-05', '2024-06-21', 'Mary Brown', 'T005', '19:30:00', '20:30:00'),
+('RES006', '2023-07-06', '2024-06-22', 'James Jones', 'T006', '14:20:00', '15:20:00'),
+('RES007', '2023-06-07', '2024-06-23', 'Patricia Garcia', 'T007', '17:45:00', '18:45:00'),
+('RES008', '2023-05-08', '2024-06-24', 'Jennifer Martinez', 'T008', '21:10:00', '22:10:00'),
+('RES009', '2023-04-09', '2024-06-25', 'William Rodriguez', 'T009', '16:00:00', '17:00:00'),
+('RES010', '2023-03-10', '2024-06-26', 'Linda Davis', 'T010', '19:00:00', '20:00:00');
 
 -- Insertion des données dans la table CONTENIR (ContenueModel)
 INSERT INTO CONTENIR (idcontenir, qte, idplat, idcom) VALUES 

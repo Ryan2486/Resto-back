@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -19,4 +20,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleEntityExistsException(EntityExistsException ex) {
         return new ResponseEntity<>("Erreur: " + ex.getMessage(), HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<String> handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        return new ResponseEntity<>("Erreur de contrainte : " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<String> handleIllegalStateException(IllegalStateException ex) {
+        return new ResponseEntity<>("Erreur: " + ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
 }

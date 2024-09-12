@@ -39,7 +39,7 @@ public class CommandeController {
 
     @PostMapping
     public CommandeModel createCommande(@RequestBody CommandeModel commandeModel) {
-        if (commandeService.findById(commandeModel.getIdcom()) == null) {
+        if (commandeService.findById(commandeModel.getIdcom()).isPresent()) {
             throw new EntityExistsException("La Commande N°:" + commandeModel.getIdcom() + " existe déjà");
         }
         return commandeService.save(commandeModel);
